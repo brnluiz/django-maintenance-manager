@@ -14,23 +14,23 @@ class Location(models.Model):
 class Flat(models.Model):
     identificator = models.CharField(max_length=15)
     # Foreign Keys:
-    location      = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location      = models.ForeignKey(Location, related_name='flats', on_delete=models.CASCADE)
 
 class Room(models.Model):
     identificator = models.CharField(max_length=15)
     # Foreign Keys:
-    flat          = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    flat          = models.ForeignKey(Flat, related_name='rooms', on_delete=models.CASCADE)
 
 # User class: a simple register for the user/student
 class User(models.Model):
-    name      = models.CharField(max_length=50)
-    surname   = models.CharField(max_length=50)
-    email     = models.EmailField()
-    phone     = models.BigIntegerField()
+    name       = models.CharField(max_length=50)
+    surname    = models.CharField(max_length=50)
+    email      = models.EmailField()
+    phone      = models.BigIntegerField()
     # Dates:
-    createdAt = models.DateTimeField('created date')
+    created_at = models.DateTimeField('created date')
     # Foreign Keys:
-    place     = models.ForeignKey(Room, on_delete=models.CASCADE)
+    place      = models.ForeignKey(Room, related_name='users', on_delete=models.CASCADE)
 
 # Employee register: have a role system to limit the technician inserts
 class Role(models.Model):
@@ -38,14 +38,14 @@ class Role(models.Model):
     level = models.IntegerField()
 
 class Employee(models.Model):
-    name      = models.CharField(max_length=50)
-    surname   = models.CharField(max_length=50)
-    email     = models.EmailField()
-    phone     = models.BigIntegerField()
+    name       = models.CharField(max_length=50)
+    surname    = models.CharField(max_length=50)
+    email      = models.EmailField()
+    phone      = models.BigIntegerField()
     # Dates:
-    createdAt = models.DateTimeField('created date')
+    created_at = models.DateTimeField('created date')
     # Foreign Keys:
-    role      = models.ForeignKey(Role, on_delete=models.CASCADE)
+    role       = models.ForeignKey(Role, related_name='employees', on_delete=models.CASCADE)
 
 # Report and Enquire details:
 class Status(models.Model):
@@ -57,11 +57,11 @@ class Enquire(models.Model):
     title       = models.CharField(max_length=100)
     description = models.TextField()
     # Dates:
-    createdAt   = models.DateTimeField('created date')
+    created_at  = models.DateTimeField('created date')
     # Foreign Keys:
-    status      = models.ForeignKey(Status, on_delete=models.CASCADE)
-    user        = models.ForeignKey(User, on_delete=models.CASCADE)
-    place       = models.ForeignKey(Room, on_delete=models.CASCADE)
+    status      = models.ForeignKey(Status, related_name='enquires', on_delete=models.CASCADE)
+    user        = models.ForeignKey(User, related_name='enquires', on_delete=models.CASCADE)
+    place       = models.ForeignKey(Room, related_name='enquires', on_delete=models.CASCADE)
 
 class Report(models.Model):
     enquire     = models.ForeignKey(Enquire, on_delete=models.CASCADE)
@@ -69,7 +69,7 @@ class Report(models.Model):
     description = models.TextField()
     reference   = models.CharField(max_length=10)
     # Dates:
-    createdAt   = models.DateTimeField('created date')
+    created_at  = models.DateTimeField('created date')
     # Foreign Keys:
-    employee    = models.ForeignKey(Location, on_delete=models.CASCADE)
-    status      = models.ForeignKey(Status, on_delete=models.CASCADE)
+    employee    = models.ForeignKey(Location, related_name='reports', on_delete=models.CASCADE)
+    status      = models.ForeignKey(Status, related_name='reports', on_delete=models.CASCADE)

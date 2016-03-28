@@ -12,15 +12,12 @@ EnquiresList
       - address
       - addressNumber
       - building
-      - Flat
-        - number
-        - Room
-          - identificator
+      ** flat number
+      ** room
     - ReportsList
       - Report
         - details
-        - Status
-          - title
+        ** status
         - createdAt
         - employee
 
