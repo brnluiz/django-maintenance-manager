@@ -11,10 +11,13 @@ from rest_framework import viewsets
 from .serializers import LocationSerializer
 from .serializers import FlatSerializer
 from .serializers import RoomSerializer
+from .serializers import EmployeeSerializer
 
 from .models import Location
 from .models import Flat
 from .models import Room
+
+from .models import Employee
 
 class LocationViewSet(viewsets.ModelViewSet):
     queryset = Location.objects.all()
@@ -27,3 +30,7 @@ class FlatViewSet(viewsets.ModelViewSet):
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer

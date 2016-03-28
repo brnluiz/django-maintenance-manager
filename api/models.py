@@ -26,7 +26,7 @@ class User(models.Model):
     name       = models.CharField(max_length=50)
     surname    = models.CharField(max_length=50)
     email      = models.EmailField()
-    phone      = models.BigIntegerField()
+    phone      = models.CharField(max_length=20)
     # Dates:
     created_at = models.DateTimeField('created date')
     # Foreign Keys:
